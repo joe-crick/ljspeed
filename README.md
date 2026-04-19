@@ -35,7 +35,7 @@ cd ljsp-macro-compiler-rs
 cargo build --release
 ```
 
-### Usage
+## Usage
 
 To compile a JavaScript file containing macro imports:
 
@@ -47,7 +47,52 @@ To compile a JavaScript file containing macro imports:
 - `input.out.js`: The expanded and transformed JavaScript.
 - `input.out.js.map`: Source map for debugging.
 
-## Example
+## Integration
+
+### Node.js Integration
+The easiest way to integrate the compiler into a Node.js project is via a build script in `package.json`.
+
+**package.json**
+```json
+{
+  "scripts": {
+    "build:macros": "ljsp-macro-compiler-rs src/index.js",
+    "start": "npm run build:macros && node src/index.out.js"
+  }
+}
+```
+
+### Vue/Vite Integration
+For modern frontend workflows using Vite, you can use a simple local plugin to transform your files during development and build.
+
+**vite.config.js**
+```javascript
+import { defineConfig } from 'vite';
+import { execSync } from 'child_process';
+
+const ljspMacroPlugin = () => ({
+  name: 'vite-plugin-ljsp-macros',
+  transform(code, id) {
+    if (id.endsWith('.js') && !id.includes('.out.js')) {
+      // Call the compiler CLI
+      execSync(`ljsp-macro-compiler-rs ${id}`);
+      // Return the generated code and map
+      const fs = require('fs');
+      return {
+        code: fs.readFileSync(`${id.replace('.js', '.out.js')}`, 'utf-8'),
+        map: fs.readFileSync(`${id.replace('.js', '.out.js.map')}`, 'utf-8')
+      };
+    }
+  }
+});
+
+export default defineConfig({
+  plugins: [ljspMacroPlugin()]
+});
+```
+
+## Practical Examples
+
 
 **Input File (`app.js`)**
 ```javascript
