@@ -44,6 +44,14 @@ cargo install --path .
 ```
 Ensure that your Cargo bin directory (usually `~/.cargo/bin`) is in your system's `PATH`.
 
+#### Installing via npm (from GitHub)
+You can install the compiler as a Node.js dependency directly from GitHub. This will automatically compile the Rust binary during the installation process:
+
+```bash
+npm install your-username/ljsp-macro-compiler-rs
+```
+> **Note**: Requires the [Rust toolchain](https://rustup.rs/) to be installed on your system.
+
 #### Dependency Requirements
 - **Rust Toolchain**: 1.80+ (2024 Edition)
 - **V8 Environment**: Managed automatically via `deno_core`. No external V8 installation is required.
