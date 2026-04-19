@@ -1,0 +1,65 @@
+name: Release Binaries
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build for ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            artifact_name: ljsp-macro-compiler-linux-x64
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            artifact_name: ljsp-macro-compiler-macos-x64
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            artifact_name: ljsp-macro-compiler-macos-arm64
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            artifact_name: ljsp-macro-compiler-windows-x64.exe
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - name: Build
+        run: cargo build --release --target ${{ matrix.target }}
+      - name: Rename binary
+        shell: bash
+        run: |
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            cp target/${{ matrix.target }}/release/ljsp-macro-compiler-rs.exe ${{ matrix.artifact_name }}
+          else
+            cp target/${{ matrix.target }}/release/ljsp-macro-compiler-rs ${{ matrix.artifact_name }}
+          fi
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_name }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ljsp-macro-compiler-linux-x64/ljsp-macro-compiler-linux-x64
+            ljsp-macro-compiler-macos-x64/ljsp-macro-compiler-macos-x64
+            ljsp-macro-compiler-macos-arm64/ljsp-macro-compiler-macos-arm64
+            ljsp-macro-compiler-windows-x64.exe/ljsp-macro-compiler-windows-x64.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -2,16 +2,16 @@
   "name": "ljsp-macro-compiler",
   "version": "0.1.0",
   "description": "A high-performance Rust-based compiler for JavaScript macros targeting the LJSP runtime.",
-  "main": "bin/cli.js",
+  "main": "bin/ljsp-macro-compiler-rs",
   "bin": {
-    "ljsp-macro-compiler": "bin/cli.js"
+    "ljsp-macro-compiler": "bin/ljsp-macro-compiler-rs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/ljsp-macro-compiler-rs.git"
+    "url": "git+https://github.com/joe-crick/ljsp-macro-compiler-rs.git"
   },
   "scripts": {
-    "postinstall": "cargo build --release"
+    "postinstall": "node scripts/install-binary.js"
   },
   "keywords": [
     "ljsp",

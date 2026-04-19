@@ -45,12 +45,13 @@ cargo install --path .
 Ensure that your Cargo bin directory (usually `~/.cargo/bin`) is in your system's `PATH`.
 
 #### Installing via npm (from GitHub)
-You can install the compiler as a Node.js dependency directly from GitHub. This will automatically compile the Rust binary during the installation process:
+You can install the compiler as a Node.js dependency directly from GitHub. This will automatically download a precompiled binary for your platform (Linux, macOS, or Windows).
 
 ```bash
-npm install your-username/ljsp-macro-compiler-rs
+npm install joe-crick/ljsp-macro-compiler-rs
 ```
-> **Note**: Requires the [Rust toolchain](https://rustup.rs/) to be installed on your system.
+
+> **Note**: If a precompiled binary is not available for your specific architecture, the installer will automatically fall back to building from source, which requires the [Rust toolchain](https://rustup.rs/).
 
 #### Dependency Requirements
 - **Rust Toolchain**: 1.80+ (2024 Edition)
@@ -77,7 +78,7 @@ The easiest way to integrate the compiler into a Node.js project is via a build 
 ```json
 {
   "scripts": {
-    "build:macros": "ljsp-macro-compiler-rs src/index.js",
+    "build:macros": "ljsp-macro-compiler src/index.js",
     "start": "npm run build:macros && node src/index.out.js"
   }
 }
@@ -96,7 +97,7 @@ const ljspMacroPlugin = () => ({
   transform(code, id) {
     if (id.endsWith('.js') && !id.includes('.out.js')) {
       // Call the compiler CLI
-      execSync(`ljsp-macro-compiler-rs ${id}`);
+      execSync(`ljsp-macro-compiler ${id}`);
       // Return the generated code and map
       const fs = require('fs');
       return {
@@ -106,6 +107,7 @@ const ljspMacroPlugin = () => ({
     }
   }
 });
+```
 
 export default defineConfig({
   plugins: [ljspMacroPlugin()]
