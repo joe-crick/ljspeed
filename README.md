@@ -29,11 +29,24 @@ This compiler strictly adheres to the following specification versions:
 
 ### Installation
 
+#### Building from Source
 ```bash
 git clone https://github.com/your-repo/ljsp-macro-compiler-rs.git
 cd ljsp-macro-compiler-rs
 cargo build --release
 ```
+The binary will be available at `./target/release/ljsp-macro-compiler-rs`.
+
+#### Installing Globally
+To use the compiler from anywhere in your system, you can install it using `cargo install`:
+```bash
+cargo install --path .
+```
+Ensure that your Cargo bin directory (usually `~/.cargo/bin`) is in your system's `PATH`.
+
+#### Dependency Requirements
+- **Rust Toolchain**: 1.80+ (2024 Edition)
+- **V8 Environment**: Managed automatically via `deno_core`. No external V8 installation is required.
 
 ## Usage
 
