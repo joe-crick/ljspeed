@@ -77,4 +77,79 @@ The compiler operates as a multi-stage transformation pipeline:
 5. **Runtime Injection**: Injects required `@ljsp/runtime` imports.
 6. **Codegen**: Emitters the final JavaScript and source maps.
 
+## Practical Examples
+
+The LJSP macro system can be used to optimize or simplify code across different JavaScript environments.
+
+### 1. Node.js: Environment-Specific Configuration
+Optimize your production bundles by resolving configuration or environment checks at compile time.
+
+**Macro (`config.macro.js`)**
+```javascript
+import { defineMacro } from "@ljsp/macro-runtime";
+
+export const getEnv = defineMacro((ctx, key) => {
+  const value = process.env[key.value] || null;
+  return ctx.literal(value);
+});
+```
+
+**Usage (`server.js`)**
+```javascript
+import { getEnv } from "./config.macro.js";
+
+const apiKey = getEnv("API_KEY");
+// Compiles directly to: const apiKey = "secret-key-from-env";
+```
+
+### 2. React: Conditional Rendering Macro
+Simplify complex conditional logic in JSX-like environments without the overhead of additional component layers.
+
+**Macro (`react-utils.macro.js`)**
+```javascript
+import { defineMacro } from "@ljsp/macro-runtime";
+
+export const renderIf = defineMacro((ctx, condition, element) => {
+  return ctx.syntax.expression`${condition} ? ${element} : null`;
+});
+```
+
+**Usage (`Component.js`)**
+```javascript
+import { renderIf } from "./react-utils.macro.js";
+
+function Profile({ user }) {
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      {renderIf(user.isAdmin, <AdminPanel />)}
+    </div>
+  );
+}
+```
+
+### 3. Vue: Composition API Boilerplate
+Reduce repetitive boilerplate when defining reactive properties in Vue 3.
+
+**Macro (`vue-utils.macro.js`)**
+```javascript
+import { defineMacro } from "@ljsp/macro-runtime";
+
+export const quickRef = defineMacro((ctx, name, initialValue) => {
+  return ctx.syntax.statement`const ${name} = ref(${initialValue})`;
+});
+```
+
+**Usage (`App.vue`)**
+```javascript
+import { quickRef } from "./vue-utils.macro.js";
+
+// Inside setup()
+quickRef(count, 0);
+quickRef(name, "Vue User");
+// Compiles to:
+// const count = ref(0);
+// const name = ref("Vue User");
+```
+
 For more details, see [Architecture Documentation](docs/architecture.md).
