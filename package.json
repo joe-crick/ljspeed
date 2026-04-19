@@ -1,14 +1,14 @@
 {
-  "name": "ljsp-macro-compiler",
+  "name": "jspeed",
   "version": "0.1.0",
   "description": "A high-performance Rust-based compiler for JavaScript macros targeting the LJSP runtime.",
-  "main": "bin/ljsp-macro-compiler-rs",
+  "main": "bin/jspeed",
   "bin": {
-    "ljsp-macro-compiler": "bin/ljsp-macro-compiler-rs"
+    "jspeed": "bin/jspeed"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joe-crick/ljsp-macro-compiler-rs.git"
+    "url": "git+https://github.com/joe-crick/jspeed.git"
   },
   "scripts": {
     "postinstall": "node scripts/install-binary.js"
@@ -18,7 +18,8 @@
     "macros",
     "compiler",
     "rust",
-    "v8"
+    "v8",
+    "jspeed"
   ],
   "author": "",
   "license": "ISC",

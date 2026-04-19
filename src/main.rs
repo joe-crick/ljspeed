@@ -19,7 +19,7 @@ use anyhow::Context;
 async fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() < 2 {
-        eprintln!("Usage: {} <input.js>", args[0]);
+        eprintln!("Usage: jspeed <input.js>");
         return Ok(());
     }
 

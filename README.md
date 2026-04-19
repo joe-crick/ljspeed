@@ -31,11 +31,11 @@ This compiler strictly adheres to the following specification versions:
 
 #### Building from Source
 ```bash
-git clone https://github.com/your-repo/ljsp-macro-compiler-rs.git
-cd ljsp-macro-compiler-rs
+git clone https://github.com/your-repo/jspeed.git
+cd jspeed
 cargo build --release
 ```
-The binary will be available at `./target/release/ljsp-macro-compiler-rs`.
+The binary will be available at `./target/release/jspeed`.
 
 #### Installing Globally
 To use the compiler from anywhere in your system, you can install it using `cargo install`:
@@ -48,7 +48,7 @@ Ensure that your Cargo bin directory (usually `~/.cargo/bin`) is in your system'
 You can install the compiler as a Node.js dependency directly from GitHub. This will automatically download a precompiled binary for your platform (Linux, macOS, or Windows).
 
 ```bash
-npm install joe-crick/ljsp-macro-compiler-rs
+npm install joe-crick/jspeed
 ```
 
 > **Note**: If a precompiled binary is not available for your specific architecture, the installer will automatically fall back to building from source, which requires the [Rust toolchain](https://rustup.rs/).
@@ -62,7 +62,7 @@ npm install joe-crick/ljsp-macro-compiler-rs
 To compile a JavaScript file containing macro imports:
 
 ```bash
-./target/release/ljsp-macro-compiler-rs input.js
+./target/release/jspeed input.js
 ```
 
 **Output:**
@@ -78,7 +78,7 @@ The easiest way to integrate the compiler into a Node.js project is via a build 
 ```json
 {
   "scripts": {
-    "build:macros": "ljsp-macro-compiler src/index.js",
+    "build:macros": "jspeed src/index.js",
     "start": "npm run build:macros && node src/index.out.js"
   }
 }
@@ -97,7 +97,7 @@ const ljspMacroPlugin = () => ({
   transform(code, id) {
     if (id.endsWith('.js') && !id.includes('.out.js')) {
       // Call the compiler CLI
-      execSync(`ljsp-macro-compiler ${id}`);
+      execSync(`jspeed ${id}`);
       // Return the generated code and map
       const fs = require('fs');
       return {
@@ -221,3 +221,5 @@ quickRef(name, "Vue User");
 ```
 
 For more details, see [Architecture Documentation](docs/architecture.md).
+cture.md).
+e details, see [Architecture Documentation](docs/architecture.md).
