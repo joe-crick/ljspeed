@@ -1,14 +1,14 @@
 {
-  "name": "jspeed",
+  "name": "ljspeed",
   "version": "0.1.0",
   "description": "A high-performance Rust-based compiler for JavaScript macros targeting the LJSP runtime.",
-  "main": "bin/jspeed",
+  "main": "bin/ljspeed",
   "bin": {
-    "jspeed": "bin/jspeed"
+    "ljspeed": "bin/ljspeed"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joe-crick/jspeed.git"
+    "url": "git+https://github.com/joe-crick/ljspeed.git"
   },
   "scripts": {
     "postinstall": "node scripts/install-binary.js"
@@ -19,7 +19,7 @@
     "compiler",
     "rust",
     "v8",
-    "jspeed"
+    "ljspeed"
   ],
   "author": "",
   "license": "ISC",

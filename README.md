@@ -1,4 +1,5 @@
 # LJSP Macro Compiler
+# LJSpeed
 
 A high-performance Rust-based compiler for JavaScript macros targeting the LJSP runtime. This compiler conforms to the **v11.x specification**, providing recursive macro expansion, high-fidelity source maps, and optimized tail-call lowering.
 
@@ -31,11 +32,11 @@ This compiler strictly adheres to the following specification versions:
 
 #### Building from Source
 ```bash
-git clone https://github.com/your-repo/jspeed.git
-cd jspeed
+git clone https://github.com/your-repo/ljspeed.git
+cd ljspeed
 cargo build --release
 ```
-The binary will be available at `./target/release/jspeed`.
+The binary will be available at `./target/release/ljspeed`.
 
 #### Installing Globally
 To use the compiler from anywhere in your system, you can install it using `cargo install`:
@@ -48,7 +49,7 @@ Ensure that your Cargo bin directory (usually `~/.cargo/bin`) is in your system'
 You can install the compiler as a Node.js dependency directly from GitHub. This will automatically download a precompiled binary for your platform (Linux, macOS, or Windows).
 
 ```bash
-npm install joe-crick/jspeed
+npm install joe-crick/ljspeed
 ```
 
 > **Note**: If a precompiled binary is not available for your specific architecture, the installer will automatically fall back to building from source, which requires the [Rust toolchain](https://rustup.rs/).
@@ -62,7 +63,7 @@ npm install joe-crick/jspeed
 To compile a JavaScript file containing macro imports:
 
 ```bash
-./target/release/jspeed input.js
+./target/release/ljspeed input.js
 ```
 
 **Output:**
@@ -78,7 +79,7 @@ The easiest way to integrate the compiler into a Node.js project is via a build 
 ```json
 {
   "scripts": {
-    "build:macros": "jspeed src/index.js",
+    "build:macros": "ljspeed src/index.js",
     "start": "npm run build:macros && node src/index.out.js"
   }
 }
@@ -97,7 +98,7 @@ const ljspMacroPlugin = () => ({
   transform(code, id) {
     if (id.endsWith('.js') && !id.includes('.out.js')) {
       // Call the compiler CLI
-      execSync(`jspeed ${id}`);
+      execSync(`ljspeed ${id}`);
       // Return the generated code and map
       const fs = require('fs');
       return {

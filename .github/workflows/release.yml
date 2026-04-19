@@ -14,16 +14,16 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            artifact_name: jspeed-linux-x64
+            artifact_name: ljspeed-linux-x64
           - os: macos-latest
             target: x86_64-apple-darwin
-            artifact_name: jspeed-macos-x64
+            artifact_name: ljspeed-macos-x64
           - os: macos-latest
             target: aarch64-apple-darwin
-            artifact_name: jspeed-macos-arm64
+            artifact_name: ljspeed-macos-arm64
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            artifact_name: jspeed-windows-x64.exe
+            artifact_name: ljspeed-windows-x64.exe
 
     steps:
       - uses: actions/checkout@v4
@@ -37,9 +37,9 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            cp target/${{ matrix.target }}/release/jspeed.exe ${{ matrix.artifact_name }}
+            cp target/${{ matrix.target }}/release/ljspeed.exe ${{ matrix.artifact_name }}
           else
-            cp target/${{ matrix.target }}/release/jspeed ${{ matrix.artifact_name }}
+            cp target/${{ matrix.target }}/release/ljspeed ${{ matrix.artifact_name }}
           fi
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -57,9 +57,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            jspeed-linux-x64/jspeed-linux-x64
-            jspeed-macos-x64/jspeed-macos-x64
-            jspeed-macos-arm64/jspeed-macos-arm64
-            jspeed-windows-x64.exe/jspeed-windows-x64.exe
+            ljspeed-linux-x64/ljspeed-linux-x64
+            ljspeed-macos-x64/ljspeed-macos-x64
+            ljspeed-macos-arm64/ljspeed-macos-arm64
+            ljspeed-windows-x64.exe/ljspeed-windows-x64.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
