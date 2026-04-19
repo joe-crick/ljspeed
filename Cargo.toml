@@ -1,0 +1,19 @@
+[package]
+name = "ljsp-macro-compiler-rs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.102"
+deno_core = "0.398.0"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+serde_v8 = "0.307.0"
+sourcemap = "9.3.2"
+swc_common = { version = "21.0.1", features = ["sourcemap"] }
+swc_ecma_ast = { version = "23.0.0", features = ["serde-impl"] }
+swc_ecma_codegen = "26.0.1"
+swc_ecma_parser = "39.0.0"
+swc_ecma_transforms = "52.0.0"
+swc_ecma_visit = "23.0.0"
+tokio = { version = "1.52.1", features = ["full"] }
