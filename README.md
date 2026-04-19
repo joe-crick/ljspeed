@@ -1,4 +1,3 @@
-# LJSP Macro Compiler
 # LJSpeed
 
 A high-performance Rust-based compiler for JavaScript macros targeting the LJSP runtime. This compiler conforms to the **v11.x specification**, providing recursive macro expansion, high-fidelity source maps, and optimized tail-call lowering.
